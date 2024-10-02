@@ -24,6 +24,7 @@ public class UserController
 
     private static void createUser(Context ctx, ConnectionPool connectionPool)
     {
+
         // Hent form parametre
         String username = ctx.formParam("username");
         String password1 = ctx.formParam("password1");

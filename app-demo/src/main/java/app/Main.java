@@ -5,6 +5,7 @@ import app.config.ThymeleafConfig;
 import app.controllers.TaskController;
 import app.controllers.UserController;
 import app.persistence.ConnectionPool;
+import app.persistence.ListMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
@@ -33,5 +34,6 @@ public class Main
 
         UserController.addRoutes(app, connectionPool);
         TaskController.addRoutes(app, connectionPool);
+
     }
 }
