@@ -9,11 +9,8 @@
 </head>
 
 <body>
-<header>
-    <a href="index.html" th:href="@{/}">
-        <img alt="logo" src="../public/images/fourthingsplus.png" th:src="@{images/fourthingsplus.png}" width="35%"/>
-    </a>
-</header>
+
+<header th:replace="fragments/header :: header"></header>
 
 <form class="generic-form" method="post">
     <input type="text" name="taskname" th:value="${task.name}"/>

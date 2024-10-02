@@ -1,0 +1,27 @@
+<!-- /templates/fragments/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Header</title>
+</head>
+<body>
+<header th:fragment="header">
+<a href="index.html" th:href="@{/}">
+    <img alt="logo" src="../public/images/fourthingsplus.png" th:src="@{images/fourthingsplus.png}" width="35%"/>
+</a>
+
+
+<!--<div class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">-->
+<!--    <a class="navbar-brand" href="#" th:href="@{/public}">My Project</a>-->
+<!--    <ul class="navbar-nav ml-auto">-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/task}">Tasks</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" th:href="@{/edittask}">Logout</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+</header>
+</body>
+</html>
