@@ -17,6 +17,8 @@ public class UserController
     {
         app.post("login", ctx -> login(ctx, connectionPool));
         app.get("logout", ctx -> logout(ctx));
+        app.get("forside", ctx -> forside(ctx));
+        app.get("update", ctx -> update(ctx));
         app.get("createuser", ctx -> ctx.render("createuser.html"));
         app.post("createuser", ctx -> createUser(ctx, connectionPool));
     }
@@ -52,6 +54,16 @@ public class UserController
 
     }
 
+    private static void forside(Context ctx)
+    {
+        ctx.render("/task.html");
+    }
+
+    private static void update(Context ctx)
+    {
+        ctx.render("/update.html");
+    }
+
     private static void logout(Context ctx)
     {
         ctx.req().getSession().invalidate();
@@ -81,10 +93,6 @@ public class UserController
             ctx.attribute("message", e.getMessage() );
             ctx.render("index.html");
         }
-
-
-
-
 
     }
 }

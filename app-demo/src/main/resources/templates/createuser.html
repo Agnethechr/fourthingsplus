@@ -28,5 +28,7 @@
     <a th:if="${session.currentUser != null}" href="index.html" th:href="@{/logout}">Logout</a>
 </div>
 
+<footer th:replace="fragments/footer :: footer"></footer>
+
 </body>
 </html>

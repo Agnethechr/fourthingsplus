@@ -110,3 +110,46 @@ h1 {
 .task-table tr:nth-child(even) {
     background-color: silver;
 }
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex; /* Flexbox for layout */
+    justify-content: space-between; /* Placerer logo og links på hver sin side */
+    align-items: center; /* Vertikal centrering */
+    padding: 10px 20px; /* Indvendig afstand */
+}
+
+.nav-links {
+    list-style-type: none; /* Fjerner punkttegn */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Flexbox for at få links i en række */
+}
+
+.nav-links li {
+    margin-left: 20px; /* Mellemrum mellem links */
+}
+
+.nav-links a {
+    text-decoration: none; /* Fjerner understregning */
+    color: black;
+    padding: 5px 10px; /* Indvendig afstand for links */
+    transition: background-color 0.3s; /* Overgangseffekt ved hover */
+}
+
+.nav-links a:hover {
+    background-color: #555; /* Mørkere baggrund ved hover */
+    border-radius: 5px; /* Rundede kanter */
+}
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
