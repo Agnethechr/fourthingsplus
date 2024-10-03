@@ -33,10 +33,11 @@
         <button class="btn btn-ok" type="submit" formaction="update-password">Ændre</button>
     </form>
 
+    <div><p class="bold" th:text="${message}"></p></div>
 
 
+    <footer th:replace="fragments/footer :: footer"></footer>
 
-<footer th:replace="fragments/footer :: footer"></footer>
 
 </body>
 </html>

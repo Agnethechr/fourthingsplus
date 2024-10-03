@@ -51,7 +51,7 @@ public class UserController {
         User user = ctx.sessionAttribute("currentUser");
         String message;
         try {
-            // int userid = Integer.parseInt(ctx.formParam("brugernavn"));
+
             String username = ctx.formParam("brugernavn");
             UserMapper.updateUserName(username, user.getUserId(),connectionPool);
 
