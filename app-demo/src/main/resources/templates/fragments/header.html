@@ -25,9 +25,6 @@
                     <a th:text="${menuItem}" th:href="${menuItem}?id=${}">Link</a>
                 </li>
 
-
-
-
             <li><p th:if="${session.currentUser != null}">
                 <a href="index.html" th:href="@{/logout}">Logout</a>
             </p></li>
