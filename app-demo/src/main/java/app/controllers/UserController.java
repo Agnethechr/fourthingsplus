@@ -106,11 +106,15 @@ public class UserController {
         try {
             User user = UserMapper.login(username, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
-            // Hvis ja, send videre til task siden
-            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
-            ctx.attribute("taskList", taskList);
-            ctx.redirect("task");
-        } catch (DatabaseException e) {
+            // Hvis ja, send videre til list siden
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+            System.out.println(listList);
+            ctx.attribute("listList", listList);
+            ctx.attribute("pbtest","Dette er pb testen!");
+            ctx.render("list.html");
+        }
+        catch (DatabaseException e)
+        {
             // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());
             ctx.render("index.html");

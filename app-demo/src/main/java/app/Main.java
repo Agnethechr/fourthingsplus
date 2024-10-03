@@ -2,10 +2,11 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
-import app.controllers.MenuController;
+import app.controllers.ListController;
 import app.controllers.TaskController;
 import app.controllers.UserController;
 import app.persistence.ConnectionPool;
+import app.persistence.ListMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 
@@ -33,6 +34,7 @@ public class Main
         app.get("/", ctx ->  ctx.render("index.html"));
 
         UserController.addRoutes(app, connectionPool);
+        ListController.addRoutes(app, connectionPool);
         TaskController.addRoutes(app, connectionPool);
         MenuController.addRoutes(app, connectionPool);
     }
