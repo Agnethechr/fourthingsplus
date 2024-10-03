@@ -71,9 +71,6 @@
 
     <div><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
 
-    <p th:if="${session.currentUser != null}">
-        <a href="index.html" th:href="@{/logout}">Logout</a>
-    </p>
 </div>
 
 <footer th:replace="fragments/footer :: footer"></footer>

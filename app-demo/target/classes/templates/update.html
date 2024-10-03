@@ -17,34 +17,25 @@
 <div class="page">
 
 
-    <h1>Welcome, <span th:text="${session.currentUser.username}"></span></h1>
+    <h1>Dit brugerinfo, <span th:text="${session.currentUser.username}"></span></h1>
+
+    <div class="left">
+    <h2 class="mt">Update brugernavn</h2>
+    </div>
 
     <form class="generic-form" method="post">
-        <input class="input-large" type="text" name="taskname" placeholder="Enter your task to be done"/>
-        <button class="btn btn-ok" type="submit" formaction="addtask">Add</button>
+        <input class="input-large" type="text" name="brugernavn" placeholder="Brugernavn"/>
+        <button class="btn btn-ok" type="submit" formaction="update-brugernavn">Ændre</button>
     </form>
 
-    <h2>UPDATE</h2>
-
+    <h2 class="mt">Update password</h2>
     <form class="generic-form" method="post">
-        <table class="task-table">
-            <thead>
-            <tr>
-                <th>Item</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="task: ${taskList}" th:if="${not task.done}">
-                <td th:text="${task.name}"></td>
-                <td>
-                    <button class="btn btn-ok" type="submit" name="taskId" th:value="${task.taskid}" formaction="done">Done</button>
-                    <button class="btn btn-ok" type="submit" name="taskId" th:value="${task.taskid}" formaction="edittask">Edit</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <input class="input-large" type="text" name="password" placeholder="password"/>
+        <button class="btn btn-ok" type="submit" formaction="update-password">Ændre</button>
     </form>
+
+
+
 
 <footer th:replace="fragments/footer :: footer"></footer>
 

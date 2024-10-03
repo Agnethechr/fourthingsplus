@@ -33,13 +33,35 @@ public class UserMapper {
         }
     }
 
-    public static void updateUserName(String userName, ConnectionPool connectionPool) throws DatabaseException {
+    public static void updateUserName(String userName, int user_id, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "UPDATE users SET username=? WHERE user_id=?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)){
 
             ps.setString(1, userName);
+            ps.setInt(2, user_id);
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected != 1) {
+                throw new DatabaseException("Fejl ved opdatering af ny bruger");
+            }
+
+        } catch (SQLException e){
+            throw new DatabaseException("Fejl ved opdatering af ny bruger");
+        }
+
+    }
+
+    public static void updatePassword(String password, int user_id, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "UPDATE users SET password=? WHERE user_id=?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+
+            ps.setString(1, password);
+            ps.setInt(2, user_id);
 
             int rowsAffected = ps.executeUpdate();
 
