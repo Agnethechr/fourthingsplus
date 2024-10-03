@@ -1,10 +1,10 @@
 package app.controllers;
 
-import app.entities.Task;
+import app.entities.Lists;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.TaskMapper;
+import app.persistence.ListMapper;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -71,10 +71,10 @@ public class UserController
         {
             User user = UserMapper.login(username, password, connectionPool);
             ctx.sessionAttribute("currentUser", user);
-            // Hvis ja, send videre til task siden
-            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
-            ctx.attribute("taskList", taskList);
-            ctx.render("task.html");
+            // Hvis ja, send videre til list siden
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+            ctx.attribute("listList", listList);
+            ctx.render("list.html");
         }
         catch (DatabaseException e)
         {

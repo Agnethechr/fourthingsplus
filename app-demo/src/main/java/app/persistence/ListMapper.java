@@ -15,7 +15,7 @@ public class ListMapper
     public static List<Lists> getAllListsPerUser(int userId, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Lists> listList = new ArrayList<>();
-        String sql = "select * from list where user_id=? order by name";
+        String sql = "select * from list where user_id=? order by listname";
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -27,8 +27,8 @@ public class ListMapper
             while (rs.next())
             {
                 int id = rs.getInt("list_id");
-                String name = rs.getString("name");
-                listList.add(new Lists(id, name, userId));
+                String listName = rs.getString("listname");
+                listList.add(new Lists(id, listName, userId));
             }
         }
         catch (SQLException e)
@@ -42,7 +42,7 @@ public class ListMapper
     {
         Lists newList = null;
 
-        String sql = "insert into list (name, user_id) values (?,?)";
+        String sql = "insert into list (listname, user_id) values (?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -71,77 +71,76 @@ public class ListMapper
     }
 
 
-//    public static void delete(int taskId, ConnectionPool connectionPool) throws DatabaseException
-//    {
-//        String sql = "delete from task where task_id = ?";
-//
-//        try (
-//                Connection connection = connectionPool.getConnection();
-//                PreparedStatement ps = connection.prepareStatement(sql)
-//        )
-//        {
-//            ps.setInt(1, taskId);
-//            int rowsAffected = ps.executeUpdate();
-//            if (rowsAffected != 1)
-//            {
-//                throw new DatabaseException("Fejl i opdatering af en task");
-//            }
-//        }
-//        catch (SQLException e)
-//        {
-//            throw new DatabaseException("Fejl ved sletning af en task", e.getMessage());
-//        }
-//    }
+    public static void delete(int listId, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "delete from list where list_id = ?";
 
-//    public static Task getTaskById(int taskId, ConnectionPool connectionPool) throws DatabaseException
-//    {
-//        Task task = null;
-//
-//        String sql = "select * from task where task_id = ?";
-//
-//        try (
-//                Connection connection = connectionPool.getConnection();
-//                PreparedStatement ps = connection.prepareStatement(sql)
-//        )
-//        {
-//            ps.setInt(1, taskId);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next())
-//            {
-//                int id = rs.getInt("task_id");
-//                String name = rs.getString("name");
-//                Boolean done = rs.getBoolean("done");
-//                int userId = rs.getInt("user_id");
-//                task = new Task(id, name, done, userId);
-//            }
-//        }
-//        catch (SQLException e)
-//        {
-//            throw new DatabaseException("Fejl ved hentning af task med id = " + taskId, e.getMessage());
-//        }
-//        return task;
-//    }
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setInt(1, listId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1)
+            {
+                throw new DatabaseException("Fejl i opdatering af en liste");
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Fejl ved sletning af en liste", e.getMessage());
+        }
+    }
 
-//    public static void update(int taskId, String taskName, ConnectionPool connectionPool) throws DatabaseException
-//    {
-//        String sql = "update task set name = ? where task_id = ?";
-//
-//        try (
-//                Connection connection = connectionPool.getConnection();
-//                PreparedStatement ps = connection.prepareStatement(sql)
-//        )
-//        {
-//            ps.setString(1, taskName);
-//            ps.setInt(2, taskId);
-//            int rowsAffected = ps.executeUpdate();
-//            if (rowsAffected != 1)
-//            {
-//                throw new DatabaseException("Fejl i opdatering af en task");
-//            }
-//        }
-//        catch (SQLException e)
-//        {
-//            throw new DatabaseException("Fejl i opdatering af en task", e.getMessage());
-//        }
-//    }
+    public static Lists getListById(int listId, ConnectionPool connectionPool) throws DatabaseException
+    {
+        Lists list = null;
+
+        String sql = "select * from list where list_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setInt(1, listId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                int id = rs.getInt("list_id");
+                String name = rs.getString("name");
+                int userId = rs.getInt("user_id");
+                list = new Lists(id, name, userId);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Fejl ved hentning af liste med id = " + listId, e.getMessage());
+        }
+        return list;
+    }
+
+    public static void update(int listId, String taskName, ConnectionPool connectionPool) throws DatabaseException
+    {
+        String sql = "update list set name = ? where list_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setString(1, taskName);
+            ps.setInt(2, listId);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 1)
+            {
+                throw new DatabaseException("Fejl i opdatering af en liste");
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Fejl i opdatering af en liste", e.getMessage());
+        }
+    }
 }

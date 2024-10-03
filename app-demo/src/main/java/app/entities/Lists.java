@@ -3,13 +3,13 @@ package app.entities;
 public class Lists
 {
     private int listId;
-    private String name;
+    private String listname;
     private int userId;
 
-    public Lists(int listId, String name, int userId)
+    public Lists(int listId, String listname, int userId)
     {
         this.listId = listId;
-        this.name = name;
+        this.listname = listname;
         this.userId = userId;
     }
 
@@ -20,7 +20,7 @@ public class Lists
 
     public String getName()
     {
-        return name;
+        return listname;
     }
 
 
@@ -34,7 +34,7 @@ public class Lists
     {
         return "List{" +
                 "listId=" + listId +
-                ", name='" + name + '\'' +
+                ", name='" + listname + '\'' +
                 ", userId=" + userId +
                 '}';
     }

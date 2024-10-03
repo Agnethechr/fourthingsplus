@@ -15,65 +15,65 @@ public class ListController
     public static void addRoutes(Javalin app, ConnectionPool connectionPool)
     {
         app.post("addlist", ctx -> addList(ctx, connectionPool));
-//        app.post("deletelist", ctx -> deletetask(ctx, connectionPool));
-//        app.post("edittask", ctx -> edittask(ctx, connectionPool));
-//        app.post("updatetask", ctx -> updatetask(ctx, connectionPool));
+        app.post("deletelist", ctx -> deletelist(ctx, connectionPool));
+        app.post("editlist", ctx -> editlist(ctx, connectionPool));
+        app.post("updatelist", ctx -> updatelist(ctx, connectionPool));
 
     }
 
-//    private static void updatetask(Context ctx, ConnectionPool connectionPool)
-//    {
-//        User user = ctx.sessionAttribute("currentUser");
-//        try
-//        {
-//            int taskId = Integer.parseInt(ctx.formParam("taskId"));
-//            String taskName = ctx.formParam("taskname");
-//            TaskMapper.update(taskId, taskName, connectionPool);
-//            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
-//            ctx.attribute("taskList", taskList);
-//            ctx.render("task.html");
-//        }
-//        catch (DatabaseException | NumberFormatException e)
-//        {
-//            ctx.attribute("message", e.getMessage());
-//            ctx.render("index.html");
-//        }
-//    }
+    private static void updatelist(Context ctx, ConnectionPool connectionPool)
+    {
+        User user = ctx.sessionAttribute("currentUser");
+        try
+        {
+            int listId = Integer.parseInt(ctx.formParam("listId"));
+            String listName = ctx.formParam("listname");
+            ListMapper.update(listId, listName, connectionPool);
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+            ctx.attribute("listList", listList);
+            ctx.render("list.html");
+        }
+        catch (DatabaseException | NumberFormatException e)
+        {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+    }
 
-//    private static void edittask(Context ctx, ConnectionPool connectionPool)
-//    {
-//        User user = ctx.sessionAttribute("currentUser");
-//        try
-//        {
-//            int taskId = Integer.parseInt(ctx.formParam("taskId"));
-//            Task task = TaskMapper.getTaskById(taskId, connectionPool);
-//            ctx.attribute("task", task);
-//            ctx.render("edittask.html");
-//        }
-//        catch (DatabaseException | NumberFormatException e)
-//        {
-//            ctx.attribute("message", e.getMessage());
-//            ctx.render("index.html");
-//        }
-//    }
-//
-//    private static void deletetask(Context ctx, ConnectionPool connectionPool)
-//    {
-//        User user = ctx.sessionAttribute("currentUser");
-//        try
-//        {
-//            int taskId = Integer.parseInt(ctx.formParam("taskId"));
-//            TaskMapper.delete(taskId, connectionPool);
-//            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
-//            ctx.attribute("taskList", taskList);
-//            ctx.render("task.html");
-//        }
-//        catch (DatabaseException | NumberFormatException e)
-//        {
-//            ctx.attribute("message", e.getMessage());
-//            ctx.render("index.html");
-//        }
-//    }
+    private static void editlist(Context ctx, ConnectionPool connectionPool)
+    {
+        User user = ctx.sessionAttribute("currentUser");
+        try
+        {
+            int listId = Integer.parseInt(ctx.formParam("listId"));
+            Lists list = ListMapper.getListById(listId, connectionPool);
+            ctx.attribute("list", list);
+            ctx.render("editlist.html");
+        }
+        catch (DatabaseException | NumberFormatException e)
+        {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+    }
+
+    private static void deletelist(Context ctx, ConnectionPool connectionPool)
+    {
+        User user = ctx.sessionAttribute("currentUser");
+        try
+        {
+            int listId = Integer.parseInt(ctx.formParam("listId"));
+            ListMapper.delete(listId, connectionPool);
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+            ctx.attribute("listList", listList);
+            ctx.render("list.html");
+        }
+        catch (DatabaseException | NumberFormatException e)
+        {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("index.html");
+        }
+    }
 
 
 

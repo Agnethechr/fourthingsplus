@@ -24,6 +24,12 @@
         <button class="btn btn-ok" type="submit" formaction="addlist">Add List</button>
     </form>
 
+    <ul th:each="list: ${listList}">
+
+        <li th:text="${list.listname}">
+        </li>
+    </ul>
+
     <h2>Doing</h2>
 
     <form class="generic-form" method="post">
