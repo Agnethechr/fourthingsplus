@@ -19,11 +19,13 @@ public class ListMapper {
         ) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
                 int id = rs.getInt("list_id");
                 String listName = rs.getString("listname");
                 listList.add(new Lists(id, listName, userId));
             }
+
         } catch (SQLException e) {
             throw new DatabaseException("Fejl!!!!", e.getMessage());
         }

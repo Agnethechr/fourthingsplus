@@ -7,6 +7,7 @@ public class User
     private String password;
     private String role;
 
+
     public User(int userId, String userName, String password, String role)
     {
         this.userId = userId;
@@ -33,6 +34,14 @@ public class User
     public String getRole()
     {
         return role;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

@@ -53,9 +53,13 @@ public class UserController {
         User user = ctx.sessionAttribute("currentUser");
         String message;
         try {
+            String newUsername = ctx.formParam("brugernavn");
 
             String username = ctx.formParam("brugernavn");
             UserMapper.updateUserName(username, user.getUserId(),connectionPool);
+
+            user.setUserName(newUsername);
+            ctx.sessionAttribute("currentUser", user);
 
             ctx.attribute("message", "Du har nu ændret dit brugernavn");
 

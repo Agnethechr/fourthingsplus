@@ -20,11 +20,11 @@
                 <a href="update.html" th:href="@{/update}">Konto</a>
             </p></li>
 
-                <li th:each="menuItem : ${#ctx.menu}">
-<!--                    <a th:text="${menuItem.name}" th:href="${menuItem.url}">Link</a>-->
-                    <a th:text="${menuItem}" th:href="${menuItem}">Link</a>
-                </li>
-<!--            ?id=${}-->
+            <li th:each="menuItem : ${menu}">
+            <a th:text="${menuItem}" th:href="@{${menuItem}}">Link</a>
+            </li>
+
+            <!--            ?id=${}-->
 
             <li><p th:if="${session.currentUser != null}">
                 <a href="index.html" th:href="@{/logout}">Logout</a>
