@@ -111,7 +111,6 @@ public class UserController {
             // Hvis ja, send videre til list siden
 
              List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
-
              ctx.attribute("listList", listList);
 
             ctx.render("list.html");
