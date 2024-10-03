@@ -109,7 +109,7 @@ public class UserController {
             // Hvis ja, send videre til task siden
             List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
             ctx.attribute("taskList", taskList);
-            ctx.render("task.html");
+            ctx.redirect("task");
         } catch (DatabaseException e) {
             // Hvis nej, send tilbage til login side med fejl besked
             ctx.attribute("message", e.getMessage());

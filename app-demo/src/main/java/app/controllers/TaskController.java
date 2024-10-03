@@ -12,6 +12,7 @@ import java.util.List;
 
 public class TaskController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
+
         app.post("addtask", ctx -> addtask(ctx, connectionPool));
         app.post("done", ctx -> done(ctx, true, connectionPool));
         app.post("undo", ctx -> done(ctx, false, connectionPool));

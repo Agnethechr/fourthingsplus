@@ -15,9 +15,19 @@
             <li><p th:if="${session.currentUser != null}">
                 <a href="task.html" th:href="@{/forside}">Forside</a>
             </p></li>
+
             <li><p th:if="${session.currentUser != null}">
                 <a href="update.html" th:href="@{/update}">Konto</a>
             </p></li>
+
+                <li th:each="menuItem : ${#ctx.menu}">
+<!--                    <a th:text="${menuItem.name}" th:href="${menuItem.url}">Link</a>-->
+                    <a th:text="${menuItem}" th:href="${menuItem}">Link</a>
+                </li>
+
+
+
+
             <li><p th:if="${session.currentUser != null}">
                 <a href="index.html" th:href="@{/logout}">Logout</a>
             </p></li>
