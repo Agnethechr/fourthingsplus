@@ -73,7 +73,9 @@ public class UserController
             ctx.sessionAttribute("currentUser", user);
             // Hvis ja, send videre til list siden
             List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+            System.out.println(listList);
             ctx.attribute("listList", listList);
+            ctx.attribute("pbtest","Dette er pb testen!");
             ctx.render("list.html");
         }
         catch (DatabaseException e)

@@ -24,11 +24,25 @@
         <button class="btn btn-ok" type="submit" formaction="addlist">Add List</button>
     </form>
 
-    <ul th:each="list: ${listList}">
+<!--    <ul th:each="Lists : ${listList}">-->
+<!--        <li th:text="${Lists.listname}"></li>-->
+<!--    </ul>-->
 
-        <li th:text="${list.listname}">
-        </li>
-    </ul>
+
+<!--    <table class="task-table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Item</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="lists: ${listList}">-->
+<!--            <td th:text="${lists.listname}"></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+    <p th:text="${pbtest}"></p>
 
     <h2>Doing</h2>
 

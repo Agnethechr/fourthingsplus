@@ -34,7 +34,7 @@ public class Lists
     {
         return "List{" +
                 "listId=" + listId +
-                ", name='" + listname + '\'' +
+                ", listname='" + listname + '\'' +
                 ", userId=" + userId +
                 '}';
     }
