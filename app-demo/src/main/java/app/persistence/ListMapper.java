@@ -12,7 +12,7 @@ public class ListMapper {
 
     public static List<Lists> getAllListsPerUser(int userId, ConnectionPool connectionPool) throws DatabaseException {
         List<Lists> listList = new ArrayList<>();
-        String sql = "select * from list where user_id=? order by listname";
+        String sql = "select * from list where user_id=? order by list_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql);

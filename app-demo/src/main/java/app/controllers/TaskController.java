@@ -1,9 +1,12 @@
 package app.controllers;
 
-import app.entities.Task;
 import app.entities.User;
+import app.entities.Lists;
+import app.entities.Task;
+
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.ListMapper;
 import app.persistence.TaskMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -24,11 +27,15 @@ public class TaskController {
 
     private static void updatetask(Context ctx, ConnectionPool connectionPool) {
         User user = ctx.sessionAttribute("currentUser");
+
         try {
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(),connectionPool);
+            Lists list = listList.get(0);
+
             int taskId = Integer.parseInt(ctx.formParam("taskId"));
             String taskName = ctx.formParam("taskname");
             TaskMapper.update(taskId, taskName, connectionPool);
-            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
+            List<Task> taskList = TaskMapper.getAllTasksPerList(list.getListId(), connectionPool);
             ctx.attribute("taskList", taskList);
             ctx.render("task.html");
         } catch (DatabaseException | NumberFormatException e) {
@@ -53,9 +60,12 @@ public class TaskController {
     private static void deletetask(Context ctx, ConnectionPool connectionPool) {
         User user = ctx.sessionAttribute("currentUser");
         try {
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(),connectionPool);
+            Lists list = listList.get(0);
+
             int taskId = Integer.parseInt(ctx.formParam("taskId"));
             TaskMapper.delete(taskId, connectionPool);
-            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
+            List<Task> taskList = TaskMapper.getAllTasksPerList(list.getListId(), connectionPool);
             ctx.attribute("taskList", taskList);
             ctx.render("task.html");
         } catch (DatabaseException | NumberFormatException e) {
@@ -67,9 +77,12 @@ public class TaskController {
     private static void done(Context ctx, boolean done, ConnectionPool connectionPool) {
         User user = ctx.sessionAttribute("currentUser");
         try {
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(),connectionPool);
+            Lists list = listList.get(0);
+
             int taskId = Integer.parseInt(ctx.formParam("taskId"));
             TaskMapper.setDoneTo(done, taskId, connectionPool);
-            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
+            List<Task> taskList = TaskMapper.getAllTasksPerList(list.getListId(), connectionPool);
             ctx.attribute("taskList", taskList);
             ctx.render("task.html");
 
@@ -86,12 +99,15 @@ public class TaskController {
 
         User user = ctx.sessionAttribute("currentUser");
         try {
+            List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(),connectionPool);
+            Lists list = listList.get(0);
+
             if (taskName.length() > 3) {
-                Task newTask = TaskMapper.addTask(user, taskName, connectionPool);
+                Task newTask = TaskMapper.addTask(list, taskName, connectionPool);
             } else {
                 ctx.attribute("message", "En task skal være længere end 3 tegn!");
             }
-            List<Task> taskList = TaskMapper.getAllTasksPerUser(user.getUserId(), connectionPool);
+            List<Task> taskList = TaskMapper.getAllTasksPerList(list.getListId(), connectionPool);
             ctx.attribute("taskList", taskList);
             ctx.render("task.html");
         } catch (DatabaseException e) {

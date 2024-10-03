@@ -111,10 +111,14 @@ public class UserController {
             // Hvis ja, send videre til list siden
 
              List<Lists> listList = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+             Lists list = listList.get(0);
+             List<Task> taskList = TaskMapper.getAllTasksPerList(list.getListId(), connectionPool);
+             ctx.attribute("taskList", taskList);
 
              ctx.attribute("listList", listList);
 
-            ctx.render("list.html");
+            //ctx.render("list.html");
+            ctx.render("task.html");
         }
         catch (DatabaseException e)
         {

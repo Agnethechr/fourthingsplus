@@ -1,7 +1,7 @@
 package app.persistence;
 
 import app.entities.Task;
-import app.entities.User;
+import app.entities.Lists;
 import app.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -11,24 +11,24 @@ import java.util.List;
 public class TaskMapper
 {
 
-    public static List<Task> getAllTasksPerUser(int userId, ConnectionPool connectionPool) throws DatabaseException
+    public static List<Task> getAllTasksPerList(int listId, ConnectionPool connectionPool) throws DatabaseException
     {
         List<Task> taskList = new ArrayList<>();
-        String sql = "select * from task where user_id=? order by name";
+        String sql = "select * from task where list_id=? order by taskname";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         )
         {
-            ps.setInt(1, userId);
+            ps.setInt(1,listId);
             ResultSet rs = ps.executeQuery();
             while (rs.next())
             {
                 int id = rs.getInt("task_id");
-                String name = rs.getString("name");
+                String taskName = rs.getString("taskname");
                 Boolean done = rs.getBoolean("done");
-                taskList.add(new Task(id, name, done, userId));
+                taskList.add(new Task(id, taskName, done, listId));
             }
         }
         catch (SQLException e)
@@ -38,11 +38,11 @@ public class TaskMapper
         return taskList;
     }
 
-    public static Task addTask(User user, String taskName, ConnectionPool connectionPool) throws DatabaseException
+    public static Task addTask(Lists list, String taskName, ConnectionPool connectionPool) throws DatabaseException
     {
         Task newTask = null;
 
-        String sql = "insert into task (name, done, user_id) values (?,?,?)";
+        String sql = "insert into task (taskname, done, list_id) values (?,?,?)";
 
         try (
                 Connection connection = connectionPool.getConnection();
@@ -51,14 +51,14 @@ public class TaskMapper
         {
             ps.setString(1, taskName);
             ps.setBoolean(2, false);
-            ps.setInt(3, user.getUserId());
+            ps.setInt(3, list.getListId());
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected == 1)
             {
                 ResultSet rs = ps.getGeneratedKeys();
                 rs.next();
                 int newId = rs.getInt(1);
-                newTask = new Task(newId, taskName, false, user.getUserId());
+                newTask = new Task(newId, taskName, false, list.getListId());
             } else
             {
                 throw new DatabaseException("Fejl under indsætning af task: " + taskName);
@@ -132,10 +132,10 @@ public class TaskMapper
             if (rs.next())
             {
                 int id = rs.getInt("task_id");
-                String name = rs.getString("name");
+                String taskName = rs.getString("taskname");
                 Boolean done = rs.getBoolean("done");
-                int userId = rs.getInt("user_id");
-                task = new Task(id, name, done, userId);
+                int listId = rs.getInt("list_id");
+                task = new Task(id, taskName, done, listId);
             }
         }
         catch (SQLException e)
@@ -147,7 +147,7 @@ public class TaskMapper
 
     public static void update(int taskId, String taskName, ConnectionPool connectionPool) throws DatabaseException
     {
-        String sql = "update task set name = ? where task_id = ?";
+        String sql = "update task set taskname = ? where task_id = ?";
 
         try (
                 Connection connection = connectionPool.getConnection();
