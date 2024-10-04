@@ -29,6 +29,22 @@ public class Main {
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
+//              Den laver menuerne, men fjerner stylingen på login -> der skal laves noget
+//        app.before(ctx -> {
+//            // Excluder login-siden og andre sider, som ikke kræver login
+//            String path = ctx.path();
+//            if (path.equals("/login") || path.equals("/")) {
+//                return; // Skip menus() for disse ruter
+//            }
+//            // Tjek om currentUser findes i session
+//            if (ctx.sessionAttribute("currentUser") == null) {
+//                ctx.redirect("/");
+//            } else {
+//                // Kald kun menus() hvis bruger er logget ind
+//                MenuController.menus(ctx, connectionPool);
+//            }
+//        });
+
 
         app.get("/", ctx -> ctx.render("index.html"));
 

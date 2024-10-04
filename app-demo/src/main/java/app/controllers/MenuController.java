@@ -16,29 +16,39 @@ public class MenuController {
         app.get("/list", ctx -> menus(ctx, connectionPool));
     }
 
-    //private static void menus(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+    public static void menus(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
+        User user = ctx.sessionAttribute("currentUser");
+
+        System.out.println("Henter currentUser fra session: " + user); // Debug-udskrift
+
+        if (user == null) {
+            ctx.redirect("/login");
+            return;
+        }
+        List<Lists> menu = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
+        ArrayList<String> nameMenu = new ArrayList<>();
+        for (Lists name : menu) {
+            nameMenu.add(name.getName());
+        }
+
+        System.out.println(nameMenu);
+
+
+        ctx.attribute("nameMenu", nameMenu);
+        ctx.render("list.html");
+    }
+//    public static List<String> menus(Context ctx, ConnectionPool connectionPool) {
 //        User user = ctx.sessionAttribute("currentUser");
 //
-//        List<Lists> menu = ListMapper.getAllListsPerUser(user.getUserId(), connectionPool);
-//        ArrayList<String> nameMenu = new ArrayList<>();
-//        for (Lists name : menu){
-//            nameMenu.add(name.getName());
-//        }
+//        System.out.println("Henter currentUser fra session: " + user); // Debug-udskrift
 //
-//        System.out.println(nameMenu);
+//        ArrayList<String> menu = new ArrayList<>();
+//        menu.add("forside");
+//        menu.add("andet");
+//        menu.add("trejde");
 //
-//
-//        ctx.attribute("nameMenu", nameMenu);
-//        ctx.render("list.html");
-        private static void menus(Context ctx, ConnectionPool connectionPool){
-            ArrayList<String> menu = new ArrayList<>();
-            menu.add("forside");
-            menu.add("andet");
-            menu.add("trejde");
-
-            ctx.attribute("menu", menu);
-            ctx.render("task.html");
-
-        }
-    }
+//        ctx.attribute("menu", menu);  // Tilføjer menuen til konteksten
+//        return menu;
+//    }
+}
 

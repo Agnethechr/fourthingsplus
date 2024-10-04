@@ -20,7 +20,7 @@
                 <a href="update.html" th:href="@{/update}">Konto</a>
             </p></li>
 
-            <li th:each="menuItem : ${menu}">
+            <li th:each="menuItem : ${nameMenu}">
             <a th:text="${menuItem}" th:href="@{${menuItem}}">Link</a>
             </li>
 

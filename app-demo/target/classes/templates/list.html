@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="da" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Fourthingsplus</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/styles.css" th:href="@{css/styles.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="page">
+
+    <header th:replace="fragments/header :: header"></header>
+
+    <h2>Your Lists</h2>
+
+    <form class="generic-form" method="post">
+        <input class="input-large" type="text" name="listname" placeholder="Enter name of new list"/>
+        <button class="btn btn-ok" type="submit" formaction="addlist">Add List</button>
+    </form>
+
+    <div><p class="error" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></p></div>
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+</body>
+</html>
